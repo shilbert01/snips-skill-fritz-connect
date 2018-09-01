@@ -32,7 +32,7 @@ sudo systemctl start snips-skill-server
 
 `Hey Snips`
 
-`Rufe Opa an?`
+`Rufe Opa an.`
 
 ## Logs
 Show snips-skill-server logs with sam:
