@@ -12,8 +12,6 @@ from fritzconnect.fritzconnect_client import FritzConnect
 CONFIGURATION_ENCODING_FORMAT = "utf-8"
 CONFIG_INI = "config.ini"
 
-number = "071150885524"
-
 class SnipsConfigParser(ConfigParser.SafeConfigParser):
     def to_dict(self):
         return {section : {option_name : option for option_name, option in self.items(section)} for section in self.sections()}
@@ -51,6 +49,8 @@ def action_wrapper(hermes, intentMessage, conf):
 	)
 
     if intentname == "DialNumber":
+	# test number https://www.telefonpaul.de/
+	number = conf["secret"]["phone number to dial"].encode("utf-8")
 	conn = fritz.dialNumber(number)
 	result_sentence = u'Die Nummer %s wird gewählt'% (number)
     hermes.publish_end_session(intentMessage.session_id, result_sentence.encode('utf-8'))
