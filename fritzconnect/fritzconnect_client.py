@@ -33,5 +33,9 @@ class FritzConnect(object):
 		result = self.fc.call_action('X_VoIP', 'X_AVM-DE_DialNumber', **kwargs)
 		#todo; extract and return status code (e.g. 200),
 
+	def dialHangup(self):
+		result = self.fc.call_action('X_VoIP', 'X_AVM-DE_DialHangup')
+		#todo; extract and return status code (e.g. 200),
+
 	def getStatus(self):
 		result = self.fc.call_action('X_VoIP', 'X_AVM-DE_DialNumber', **kwargs)

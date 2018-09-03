@@ -55,6 +55,12 @@ def action_wrapper(hermes, intentMessage, conf):
 	result_sentence = u'Die Nummer %s wird gewählt'% (number)
     hermes.publish_end_session(intentMessage.session_id, result_sentence.encode('utf-8'))
 
+    if intentname == "DialHangup":
+	conn = fritz.dialHangup()
+	result_sentence = u'Der Anruf wurde beendet'
+    hermes.publish_end_session(intentMessage.session_id, result_sentence.encode('utf-8'))
+
+
 if __name__ == "__main__":
     with Hermes("localhost:1883") as h:
 	h.subscribe_intents(subscribe_intent_callback).start()
