@@ -16,27 +16,22 @@ except (ValueError, SystemError, ImportError):
 from datetime import datetime, timedelta
 from lxml import etree
 
-class FritzConnect:
-	def __init__(self, ipaddress, user, password):
-		if ipaddress is not None:
-		    self.ip = ipaddress
-		else:
-		    self.ip =fritzconnection.FRITZ_IP_ADDRESS,
-		self.port=fritzconnection.FRITZ_TCP_PORT,
-		# usually there is no username, seperate user/password can however be defined in the Fritz!Box webinterface
-		if username is not None:
-		    self.user = user
-		else:
-		    self.user = fritzconnection.FRITZ_USERNAME,
-		self.password = password,
+class FritzConnect(object):
+	def __init__(self, 
+		fc = None,
+		address=fritzconnection.fritzconnection.FRITZ_IP_ADDRESS,
+		port=fritzconnection.fritzconnection.FRITZ_TCP_PORT,
+		user=fritzconnection.fritzconnection.FRITZ_USERNAME,
+		password=''):
+	    super(FritzConnect, self).__init__()
+	    if fc is None:
+		fc = fritzconnection.FritzConnection(address, port, user, password)
+	    self.fc = fc
 
-	fc = None
-        if fc is None:
-            fc = fritzconnection.FritzConnection(self.ip, self.port, self.user, self.password)
-        self.fc = fc
-
-	def dial_number(self, phonenumber):
-		kwargs = {"NewX_AVM-DE_PhoneNumber":phonenumber[0]}
-		#result = self.fc.call_action(ONTEL_SERVICE, ACTION, **kwargs)
+	def dialNumber(self, phonenumber):
+		kwargs = {"NewX_AVM-DE_PhoneNumber":phonenumber}
 		result = self.fc.call_action('X_VoIP', 'X_AVM-DE_DialNumber', **kwargs)
 		#todo; extract and return status code (e.g. 200),
+
+	def getStatus(self):
+		result = self.fc.call_action('X_VoIP', 'X_AVM-DE_DialNumber', **kwargs)

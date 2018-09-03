@@ -12,6 +12,8 @@ from fritzconnect.fritzconnect_client import FritzConnect
 CONFIGURATION_ENCODING_FORMAT = "utf-8"
 CONFIG_INI = "config.ini"
 
+number = "015122787739"
+
 class SnipsConfigParser(ConfigParser.SafeConfigParser):
     def to_dict(self):
         return {section : {option_name : option for option_name, option in self.items(section)} for section in self.sections()}
@@ -43,14 +45,14 @@ def action_wrapper(hermes, intentMessage, conf):
     Refer to the documentation for further details. 
     """
     intentname = intentMessage.intent.intent_name.split(':')[1]
+
     fritz = FritzConnect(
-	conf["secret"]["ipaddress"],
-	conf["secret"]["password"])
+	password = conf["secret"]["password"].encode("utf-8")
+	)
 
     if intentname == "DialNumber":
-	conn = fritz.getStatus()
-	result_sentence = u'%s konnte nicht erfolgreich gestoppt werden'% (mower["name"])
-
+	conn = fritz.dialNumber(number)
+	result_sentence = u'Die Nummer %s wird gewählt'% (number)
     hermes.publish_end_session(intentMessage.session_id, result_sentence.encode('utf-8'))
 
 if __name__ == "__main__":
