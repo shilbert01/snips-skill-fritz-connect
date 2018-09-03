@@ -8,6 +8,11 @@ This is a Snips action to interact with an AVM Fritz!Box router/PBX. It is writt
 
 You'll need to add the Fritz!Connect skill in your assistant. It's available on [Snips' console](https://console.snips.ai)
 
+You'll also need to make sure some development packages are installed on your system:
+`python-dev , libxml2-dev , libxslt-dev`
+
+On Raspian you can isntall this via `sudo apt-get install python-dev libxml2-dev libxslt-dev`
+
 ### SAM (preferred)
 To install the action on your device, you can use [Sam](https://snips.gitbook.io/getting-started/installation)
 
