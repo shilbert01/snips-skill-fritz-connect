@@ -44,20 +44,18 @@ def action_wrapper(hermes, intentMessage, conf):
     """
     intentname = intentMessage.intent.intent_name.split(':')[1]
 
-    fritz = FritzConnect(
-	password = conf["secret"]["password"].encode("utf-8")
-	)
+    fritz = FritzConnect(password = conf["secret"]["password"].encode("utf-8"))
 
     if intentname == "DialNumber":
 	# test number https://www.telefonpaul.de/
 	number = conf["secret"]["phone number to dial"].encode("utf-8")
 	conn = fritz.dialNumber(number)
 	result_sentence = u'Die Nummer %s wird gewählt'% (number)
-    hermes.publish_end_session(intentMessage.session_id, result_sentence.encode('utf-8'))
 
     if intentname == "DialHangup":
 	conn = fritz.dialHangup()
 	result_sentence = u'Der Anruf wurde beendet'
+
     hermes.publish_end_session(intentMessage.session_id, result_sentence.encode('utf-8'))
 
 
