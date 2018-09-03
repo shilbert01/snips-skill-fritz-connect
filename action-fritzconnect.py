@@ -12,7 +12,7 @@ from fritzconnect.fritzconnect_client import FritzConnect
 CONFIGURATION_ENCODING_FORMAT = "utf-8"
 CONFIG_INI = "config.ini"
 
-number = "015122787739"
+number = "071150885524"
 
 class SnipsConfigParser(ConfigParser.SafeConfigParser):
     def to_dict(self):
