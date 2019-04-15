@@ -29,8 +29,11 @@ def read_configuration_file(configuration_file):
 
 def subscribe_intent_callback(hermes, intentMessage):
     user,intentname = intentMessage.intent.intent_name.split(':')  # the user can fork the intent with this method
-    conf = read_configuration_file(CONFIG_INI)
-    action_wrapper(hermes, intentMessage, conf)
+    if intentname in ["DialNumber","DialHangup"]:
+	conf = read_configuration_file(CONFIG_INI)
+	action_wrapper(hermes, intentMessage, conf)
+    else:
+	pass
 
 
 def action_wrapper(hermes, intentMessage, conf):
